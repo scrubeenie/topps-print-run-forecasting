@@ -1,152 +1,106 @@
-📘 Topps Print Run Forecasting (NBA + MLB Expansion Project)
+# 🧮 Topps Print Run Forecasting  
+### *(NBA Project – MLB expansion planned)*
 
-Machine learning project analyzing and forecasting Topps Now print runs using:
+Machine learning project analyzing and forecasting **Topps Now print runs** using:
 
-Feature engineering
+- Feature engineering  
+- Exploratory data analysis  
+- Random Forest regression  
+- Log-transformed modeling for skewed distributions  
+- Visualizations (matplotlib, seaborn)  
+- Future Power BI dashboards  
 
-Exploratory data analysis
+This project builds a predictive framework for understanding how factors such as rookies, superstars, multi-player cards, team tier, and rare inserts influence daily sports card print runs.
 
-Random Forest regression
+---
 
-Log-transformed modeling for skewed distributions
+## 📌 Project Question  
+**Can we predict print runs using publicly available card data?  
+Which card attributes most strongly influence demand?**
 
-Visualization (matplotlib, seaborn)
+---
 
-Future Power BI dashboards
+## 📊 Current Model Performance
 
-This project builds a predictive framework for understanding how factors such as rookies, superstars, multi-player cards, team market size, and rare inserts influence daily sports card print runs.
+The current model uses a **Random Forest Regressor** with engineered features.
 
-🔍 Project Overview
+**Model Results (Log scale):**
 
-Topps Now cards have highly variable print runs driven by real-time market demand.
-This project answers:
+- **R² Score:** 0.587  
+- **Log MAE:** 0.741  
+- **Log RMSE:** 0.983  
 
-👉 Can we predict print runs using publicly available card metadata?
-👉 Which card attributes most strongly influence demand?
+➡️ *This means the model explains ~59% of the variance in print runs — strong given the small dataset and high volatility of Topps Now print behavior.*
 
-🧠 Current Model Performance
+---
 
-Using a Random Forest Regressor with engineered features:
+## 🧱 Feature Engineering
 
-Metric	Score
-R² Score	0.587
-Log MAE	0.741
-Log RMSE	0.983
+The model includes custom engineered features:
 
-This means the model explains ~59% of the variance in print runs — strong given the small dataset and volatile nature of Topps Now card demand.
+- **IsRookie** – flags rookie cards  
+- **IsVet** – flags veteran players  
+- **SPInserts** – identifies rare short-print insert cards  
+- **HasAutoRelic** – identifies autograph/relic cards  
+- **IsSuperstar** – derived from superstar list (Curry, Jokic, Wembanyama, etc.)  
+- **TeamTier** – teams categorized into market tiers  
+- **IsMultiPlayer** – single vs multi-player card indicator  
 
-🔧 Feature Engineering Included
+These features significantly improved model stability and predictive power.
 
-The following features were created and tested:
+---
 
-IsRookie – Rookie Card flag
+## 🔍 Exploratory Data Analysis Highlights
 
-IsVet – Veteran flag
+- Superstar and rookie cards show significantly higher median print runs  
+- High-tier market teams (Lakers, Celtics, Warriors) exhibit stronger demand   
+- Distribution of print runs is heavily skewed → *log transformation required*  
+- Multi-player cards behave differently than single-player cards  
 
-IsSuperstar – Curry, LeBron, Luka, Jokic, Giannis, Wembanyama, SGA
+---
 
-SPInserts – Short Print indicator
+## 🤖 Modeling Approach
 
-HasAutoRelic – Autograph or relic included
+1. Cleaned and normalized Print Run values  
+2. Created engineered features  
+3. Applied log transformation to target variable  
+4. Split data: 80% training / 20% testing  
+5. Trained Random Forest Regressor (n=300)  
+6. Evaluated MAE, RMSE, and R²  
+7. Visualized predictions vs actual values  
+8. Analyzed feature importances  
 
-TeamTier – 1–7 tiering of NBA markets based on popularity & market size
+---
 
-IsMultiPlayer – Multi-player card indicator
+## 📈 Next Steps
 
-📊 Exploratory Visuals (Jupyter Notebook)
+- Expand dataset to include MLB Topps Now cards  
+- Merge historical players' popularity metrics  
+- Build **Power BI dashboards** for interactive analysis   
+- Test alternative models: GradientBoosting, XGBoost, LightGBM  
+- Add external features such as:
+  - Player performance data  
+  - Milestone moments
+  - Google player trends
 
-The notebook includes:
+---
 
-Distribution of print runs
+## 📁 Repository Contents
 
-Rookie vs Vet print run comparison
+| File | Description |
+|------|-------------|
+| **Topps_Now_NBA.ipynb** | Full analysis, EDA, feature engineering, and ML model |
+| **Topps_NBA_Print_Run_Prediction_Project.pdf** | Project summary exported from Notion |
+| **README.md** | High-level project overview |
 
-Short print vs non-SP analysis
+---
 
-Superstar effect on demand
+## 🙌 Acknowledgments
 
-Team tier analysis
+This project is part of a personal analytics portfolio exploring sports cards demand forecasting and applied machine learning.
 
-Actual vs Predicted scatterplot
+---
 
-Feature importance chart
+## ⭐ If you find this useful…
 
-🤖 Machine Learning Workflow
-
-Data cleaning + normalization
-
-Manual mapping of player tiers & superstar groups
-
-Log transformation of target (Print Run)
-
-Train/test split
-
-Hyperparameter-tuned Random Forest
-
-Evaluation on log scale
-
-Back-transforming predictions for interpretability
-
-📁 Repository Structure
-📦 topps-print-run-forecasting
- ┣ 📄 README.md
- ┣ 📓 Topps_Now_NBA.ipynb               ← Full ML notebook
- ┣ 📄 Topps_Now_NBA_Print_Run_Summary.pdf (Notion export)
- ┗ 📂 /data (coming soon)
-
-
-Power BI visual dashboards will be added next.
-
-🚀 Roadmap
-Short-Term
-
-Add MLB Topps Now dataset
-
-Compare NBA vs MLB print run drivers
-
-Publish Power BI dashboards to GitHub & LinkedIn
-
-Add model comparison (XGBoost, CatBoost, ElasticNet)
-
-Medium-Term
-
-Deploy interactive dashboard using:
-
-Streamlit
-
-Plotly Dash
-
-Power BI Web Embed
-
-Create a combined multi-sport forecasting model
-
-Long-Term
-
-Train large model across NBA, MLB, EPL, WWE, and F1 Topps Now
-
-Build ranking system for "Expected Demand Score"
-
-Predict print runs immediately upon card release
-
-📎 Documentation
-
-📄 Project Summary (Notion)
-(Publish link here once ready)
-
-📓 Notebook:
-Topps_Now_NBA.ipynb
-
-🏀🌟 Why This Project Matters
-
-Sports card analytics is an emerging field with limited open-source tooling.
-This project demonstrates:
-
-Real-world forecasting on a rapidly changing product
-
-Business analytics mindset
-
-End-to-end machine learning pipeline
-
-Ability to translate domain expertise into features
-
-Strong documentation + storytelling for portfolio use
+Feel free to star the repo or connect with me on LinkedIn!
